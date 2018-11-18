@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <qa-navbar></qa-navbar>
-        <qa-subnav></qa-subnav>
+        <!--<qa-subnav></qa-subnav>-->
         <div>
             <router-view></router-view>
         </div>

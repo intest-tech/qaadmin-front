@@ -5,6 +5,8 @@ Vue.use(Router);
 
 const Base = resolve => require(['../pages/base/base.vue'], resolve);
 const Collaspe = resolve => require(['../pages/demo/collaspe.vue'], resolve);
+const ProjectList = resolve => require(['../pages/project/list.vue'], resolve);
+const VersionList = resolve => require(['../pages/version/list.vue'], resolve);
 
 const routes = [
     {
@@ -14,6 +16,18 @@ const routes = [
             {
                 path: 'demo',
                 component: Collaspe
+            },
+            {
+                path: 'project',
+                component: ProjectList
+            },
+            {
+                path: 'project/:project',
+                component: VersionList
+            },
+            {
+                path: 'project/:project/version/:version',
+                component: VersionList
             }
         ]
     }
