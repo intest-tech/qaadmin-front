@@ -1,25 +1,38 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Base from './views/Base.vue'
+import ProjectList from './views/ProjectList'
+import VersionList from './views/VersionList'
+import JobDetail from './views/JobDetail'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Base,
+            children: [
+                {
+                    path: 'project',
+                    component: ProjectList
+                },
+                {
+                    path: 'project/:project_id',
+                    component: VersionList
+                },
+                {
+                    path: 'project/:project_id/job/:job_id',
+                    component: JobDetail
+                }
+            ]
+        },
+        // {
+        //     path: '/debug',
+        //     component: ListCard
+        // }
+    ]
 })
