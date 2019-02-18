@@ -25,6 +25,10 @@ export default new Router({
                     component: VersionList
                 },
                 {
+                    path: 'project/:project_id/v/:version',
+                    component: JobDetail
+                },
+                {
                     path: 'project/:project_id/job/:job_id',
                     component: JobDetail
                 }

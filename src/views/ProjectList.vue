@@ -59,7 +59,8 @@
             },
             gotoProject(data) {
                 var vm = this;
-                vm.$router.push({path: '/project/'+data.name})
+                // 跳转到 /project/<project_id> 页面
+                vm.$router.push({path: `/project/${data.name}`});
             }
         }
     }
