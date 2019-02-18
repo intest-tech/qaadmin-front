@@ -4,8 +4,8 @@
         <Row :gutter="16">
             <Col span="16">
                 <Tabs>
-                    <TabPane label="Overview" icon="logo-windows">标签二的内容</TabPane>
-                    <TabPane label="Traceback" icon="logo-apple">
+                    <TabPane label="Overview" icon="md-stats">标签二的内容</TabPane>
+                    <TabPane label="Traceback" icon="md-code">
                         <Traceback></Traceback>
                     </TabPane>
                 </Tabs>
