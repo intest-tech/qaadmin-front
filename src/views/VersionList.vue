@@ -1,6 +1,10 @@
 <template>
     <div>
-        <h2>project {{ project_id }}</h2>
+        <div class="version-head">
+            <h2>project {{ project_id }}</h2>
+            <!--<Icon type="ios-add-circle-outline" @click="createVersion"/>-->
+            <VersionCreate></VersionCreate>
+        </div>
         <ul style="list-style-type: none">
             <li v-for="item in version_list">
                 <VersionCard :version="item.version" @click="gotoVersion"></VersionCard>
@@ -11,11 +15,13 @@
 </template>
 <script>
     import VersionCard from '@/components/version/Card.vue'
+    import VersionCreate from '@/components/version/Create.vue'
 
     export default {
         name: "VersionList",
         components: {
-            VersionCard
+            VersionCard,
+            VersionCreate
         },
         data() {
             return {
