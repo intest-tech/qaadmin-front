@@ -74,6 +74,7 @@
 <script>
     export default {
         name: "VersionCreate",
+        props: ['project_id'],
         data() {
             return {
                 value3: false,
@@ -85,8 +86,6 @@
                 },
                 formData: {
                     version: '',
-                    project: '',
-                    // url: '',
                     // owner: '',
                     // type: '',
                     // approver: '',
@@ -97,16 +96,18 @@
         },
         methods: {
             handleSubmit(name) {
-                // debugger
                 var vm = this;
-                console.log(vm.formData)
+                vm.formData['project'] = vm.project_id;
                 vm.$http
                     .post(`http://0.0.0.0:5000/api/version/create`, vm.formData)
                     .then(res => {
                         // vm.version_list = res.data.data
-                        console.log(res.data.data)
+                        console.log(res.data.data);
+                        vm.value3 = false
+
                     });
-            }
+                // 创建完成立即刷新页面
+            },
         }
     }
 </script>

@@ -2,12 +2,11 @@
     <div>
         <div class="version-head">
             <h2>project {{ project_id }}</h2>
-            <!--<Icon type="ios-add-circle-outline" @click="createVersion"/>-->
-            <VersionCreate></VersionCreate>
+            <VersionCreate :project_id="project_id"></VersionCreate>
         </div>
         <ul style="list-style-type: none">
             <li v-for="item in version_list">
-                <VersionCard :version="item.version" @click="gotoVersion"></VersionCard>
+                <VersionCard :version="item.name" @click="gotoVersion"></VersionCard>
             </li>
         </ul>
         <Page :total="100" show-elevator/>
@@ -40,7 +39,7 @@
                 }
                 var vm = this;
                 vm.$http
-                    .get(`http://0.0.0.0:5000/api/test-result/get-version?project=${vm.project_id}`)
+                    .get(`http://0.0.0.0:5000/api/version/list?project=${vm.project_id}`)
                     .then(res => {
                         vm.version_list = res.data.data
                     })
