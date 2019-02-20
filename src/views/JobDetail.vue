@@ -20,14 +20,8 @@
                 </Select>
                 <Divider/>
                 <ul style="list-style-type: none">
-                    <li>
-                        111
-                    </li>
-                    <li>
-                        222
-                    </li>
-                    <li>
-                        333
+                    <li v-for="item in jobList" :value="item.stage">
+                        {{ item.stage }}
                     </li>
                 </ul>
             </Col>
@@ -47,9 +41,12 @@
             return {
                 project_id: this.$route.params.project_id,
                 version: this.$route.params.version,
+                // 下拉框选项
                 pipeLineList: [],
-                // 下拉框默认选项
-                defautOption: ''
+                defautOption: '',
+                // 任务列表
+                jobList: [],
+                defautJob: ''
             }
         },
         created() {
@@ -68,8 +65,15 @@
             },
             getJobListOfStage(option) {
                 // 获取某一步骤的所有Job
-                debugger;
-                console.log(option)
+                var vm = this;
+                vm.$http
+                    .get(`http://0.0.0.0:5000/api/version/get-job-list?project=${vm.project_id}&version=${vm.version}&stage=${option}`)
+                    .then(res => {
+                        vm.jobList = res.data.data;
+                        if (vm.jobList.length !== 0){
+                            vm.defautJob = vm.jobList[0]._id.$oid;
+                        }
+                    })
             },
             getJobDetail() {
                 // 获取某一Job的具体信息
