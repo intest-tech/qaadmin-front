@@ -8,17 +8,18 @@
                     </Col>
                     <Col span="8">
                         <NavAvatar></NavAvatar>
+                        <button @click="Login"></button>
                     </Col>
                 </Row>
             </Header>
-            <Content :style="{margin: '88px 20px 20px', padding: '0 50px', height: '600px', overflow: 'auto'}">
+            <Content :style="{margin: '88px 20px 20px', padding: '0 50px', height: '700px', overflow: 'auto'}">
                 <!--<Breadcrumb :style="{margin: '20px 0', left: 0}">-->
                 <!--<BreadcrumbItem>Home</BreadcrumbItem>-->
                 <!--<BreadcrumbItem>Components</BreadcrumbItem>-->
                 <!--<BreadcrumbItem>Layout</BreadcrumbItem>-->
                 <!--</Breadcrumb>-->
                 <!--<Card>-->
-                <div style="min-height: 500px; background: white">
+                <div style="min-height: 680px; background: white">
                     <router-view></router-view>
                 </div>
                 <!--</Card>-->
@@ -37,6 +38,11 @@
         components: {
             NavMenu,
             NavAvatar
+        },
+        methods: {
+            Login() {
+                window.location.href = `http://0.0.0.0:5000/api/v1/login?next=${window.location.href}`;
+            }
         }
     }
 </script>

@@ -8,6 +8,7 @@
 
 <script>
     // import ProjectCard from '@/components/project/Card.vue'
+    import {getProject} from '../apis/project'
 
     export default {
         name: "ProjectList",
@@ -43,19 +44,13 @@
         },
         methods: {
             getProjectList(page) {
-                var vm = this;
-                vm.$http
-                    .get(`http://0.0.0.0:5000/api/test-result/latest`)
-                    .then(res => {
-                        vm.data = res.data.data.map(x => {
-                            return {
-                                name: x.project,
-                                hasRecord: x.has_record,
-                                version: x.version,
-                                success: x.has_record === true ? x.success : ""
-                            }
-                        });
-                    })
+                getProject().then((err, res) => {
+                    debugger
+                    if (err){
+                        return;
+                    }
+                    vm.data = res.data;
+                });
             },
             gotoProject(data) {
                 var vm = this;

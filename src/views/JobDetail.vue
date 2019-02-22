@@ -6,12 +6,13 @@
                 <Tabs>
                     <TabPane label="Overview" icon="md-stats">标签二的内容</TabPane>
                     <TabPane label="Traceback" icon="md-code">
-                        <Traceback></Traceback>
+                        <!--传入traceback内容-->
+                        <Traceback :details="jobDetail.details"></Traceback>
                     </TabPane>
                 </Tabs>
             </Col>
             <Col span="8">
-                <h2>Version xxx</h2>
+                <h2>Version {{ version }}</h2>
                 <Divider/>
                 步骤选择:
                 <br/>
@@ -19,11 +20,9 @@
                     <Option v-for="item in pipeLineList" :value="item" :key="item">{{ item }}</Option>
                 </Select>
                 <Divider/>
-                <ul style="list-style-type: none">
-                    <li v-for="item in jobList" :value="item.stage">
-                        {{ item.stage }}
-                    </li>
-                </ul>
+                <Timeline>
+                    <TimelineItem v-for="item in jobList" :key="item._id.$oid" color="green"><a @click="getJobDetail(item._id.$oid)">{{ item.stage }}</a></TimelineItem>
+                </Timeline>
             </Col>
         </Row>
     </div>
@@ -46,7 +45,9 @@
                 defautOption: '',
                 // 任务列表
                 jobList: [],
-                defautJob: ''
+                defautJob: '',
+                // 任务详情
+                jobDetail: {}
             }
         },
         created() {
@@ -60,7 +61,8 @@
                     .get(`http://0.0.0.0:5000/api/version/get-pipeline?project=${vm.project_id}&version=${vm.version}`)
                     .then(res => {
                         vm.pipeLineList = res.data.data.pipeline;
-                        vm.defautOption = vm.pipeLineList[0]
+                        vm.defautOption = vm.pipeLineList[0];
+                        vm.getJobListOfStage(vm.defautOption);
                     })
             },
             getJobListOfStage(option) {
@@ -72,12 +74,18 @@
                         vm.jobList = res.data.data;
                         if (vm.jobList.length !== 0){
                             vm.defautJob = vm.jobList[0]._id.$oid;
+                            vm.getJobDetail(vm.defautJob);
                         }
                     })
             },
-            getJobDetail() {
+            getJobDetail(id) {
                 // 获取某一Job的具体信息
-
+                var vm = this;
+                vm.$http
+                    .get(`http://0.0.0.0:5000/api/job?id=${id}`)
+                    .then(res => {
+                        vm.jobDetail = res.data.data;
+                    })
             }
         }
     }
