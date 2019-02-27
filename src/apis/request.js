@@ -19,22 +19,7 @@ export default function (opt) {
             return next([err, res.data, res])
         }).catch(e => {
             var { response, request } = e, err = e.message;
-            // if (typeof response === 'object' && response.status == 403) {
-            //     if (!isAlert) {
-            //         isAlert = 1
-            //         alert('登录账户权限变更，强制退出');
-            //     }
-            //     CookieExpire()
-            //     return location.replace('/login')
-            // }
-            // if (typeof request == 'object') {
-            //     var resp = request.response;
-            //     if (typeof resp === 'string') {
-            //         try { resp = JSON.parse(resp) } catch (_e) { resp = 0; }
-            //     }
-            //     if (resp && typeof resp == 'object' && resp.detail) { err = resp.detail }
-            // }
-            return next([err, 0[1], request])
+            return next([err, err[1], request])
         })
     })
 }

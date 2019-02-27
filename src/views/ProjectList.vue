@@ -28,12 +28,8 @@
                         key: 'version',
                     },
                     {
-                        title: 'Success',
-                        key: 'success'
-                    },
-                    {
-                        title: 'Has record',
-                        key: 'hasRecord',
+                        title: 'Status',
+                        key: 'status'
                     }
                 ],
                 data: [],
@@ -44,12 +40,12 @@
         },
         methods: {
             getProjectList(page) {
-                getProject().then((err, res) => {
-                    debugger
-                    if (err){
+                var vm = this;
+                getProject().then(([err, data, res]) => {
+                    if (err) {
                         return;
                     }
-                    vm.data = res.data;
+                    vm.data = data;
                 });
             },
             gotoProject(data) {

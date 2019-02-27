@@ -15,6 +15,7 @@
 <script>
     import VersionCard from '@/components/version/Card.vue'
     import VersionCreate from '@/components/version/Create.vue'
+    import {getVersion} from '../apis/version'
 
     export default {
         name: "VersionList",
@@ -34,15 +35,13 @@
         },
         methods: {
             getVersionList(page) {
-                if (!page){
+                if (!page) {
                     page = 1
                 }
                 var vm = this;
-                vm.$http
-                    .get(`http://0.0.0.0:5000/api/version/list?project=${vm.project_id}`)
-                    .then(res => {
-                        vm.version_list = res.data.data
-                    })
+                getVersion(vm.project_id).then(([err, data, res]) => {
+                    vm.version_list = data.data
+                })
             },
             gotoVersion(data) {
                 var vm = this;

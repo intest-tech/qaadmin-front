@@ -72,6 +72,8 @@
     </div>
 </template>
 <script>
+    import {createVersion} from "../../apis/version";
+
     export default {
         name: "VersionCreate",
         props: ['project_id'],
@@ -97,15 +99,9 @@
         methods: {
             handleSubmit(name) {
                 var vm = this;
-                vm.formData['project'] = vm.project_id;
-                vm.$http
-                    .post(`http://0.0.0.0:5000/api/version/create`, vm.formData)
-                    .then(res => {
-                        // vm.version_list = res.data.data
-                        console.log(res.data.data);
-                        vm.value3 = false
-
-                    });
+                createVersion(vm.project_id, vm.formData).then(([err, data, res]) => {
+                    vm.value3 = false
+                })
                 // 创建完成立即刷新页面
             },
         }
