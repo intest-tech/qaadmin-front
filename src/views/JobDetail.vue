@@ -1,32 +1,36 @@
 <template>
-    <div>
-        <!--<VersionSteps></VersionSteps>-->
-        <Row :gutter="16">
-            <Col span="16">
-                <Tabs>
-                    <TabPane label="Overview" icon="md-stats">标签二的内容</TabPane>
-                    <TabPane label="Traceback" icon="md-code">
-                        <!--传入traceback内容-->
-                        <Traceback :details="jobDetail.details"></Traceback>
-                    </TabPane>
-                </Tabs>
+    <!--<VersionSteps></VersionSteps>-->
+    <Card style="height: 100%">
+        <Row :gutter="16" style="height: 100%" >
+            <Col span="16" style="height: 100%">
+                <Card style="height: 100%">
+                    <Tabs>
+                        <TabPane label="Overview" icon="md-stats">标签二的内容</TabPane>
+                        <TabPane label="Traceback" icon="md-code">
+                            <!--传入traceback内容-->
+                            <Traceback :details="jobDetail.details" style="margin: 10px;overflow: hidden"></Traceback>
+                        </TabPane>
+                    </Tabs>
+                </Card>
             </Col>
-            <Col span="8">
-                <h2>Version {{ version }}</h2>
-                <Divider/>
-                步骤选择:
-                <br/>
-                <Select v-model="defautOption" style="width:200px" @on-change="getJobListOfStage">
-                    <Option v-for="item in pipeLineList" :value="item" :key="item">{{ item }}</Option>
-                </Select>
-                <Divider/>
-                <Timeline>
-                    <TimelineItem v-for="item in jobList" :key="item._id.$oid" color="green"><a
-                            @click="getJobDetails(item._id.$oid)">{{ item.stage }}</a></TimelineItem>
-                </Timeline>
+            <Col span="8" style="height: 100%">
+                <Card style="height: 100%">
+                    <h2>Version {{ version }}</h2>
+                    <Divider/>
+                    步骤选择:
+                    <br/>
+                    <Select v-model="defautOption" style="width:200px" @on-change="getJobListOfStage">
+                        <Option v-for="item in pipeLineList" :value="item" :key="item">{{ item }}</Option>
+                    </Select>
+                    <Divider/>
+                    <Timeline>
+                        <TimelineItem v-for="item in jobList" :key="item._id.$oid" color="green"><a
+                                @click="getJobDetails(item._id.$oid)">{{ item.stage }}</a></TimelineItem>
+                    </Timeline>
+                </Card>
             </Col>
         </Row>
-    </div>
+    </Card>
 </template>
 
 <script>
@@ -88,6 +92,9 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+.ivu-card-body{
+    padding: 16px;
+    height: 100%;
+}
 </style>
