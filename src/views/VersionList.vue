@@ -1,16 +1,23 @@
 <template>
-    <div>
-        <div class="version-head">
-            <h2>project {{ project_id }}</h2>
-            <VersionCreate :project_id="project_id"></VersionCreate>
-        </div>
-        <ul style="list-style-type: none">
-            <li v-for="item in version_list">
-                <VersionCard :version="item.name" @click="gotoVersion"></VersionCard>
-            </li>
-        </ul>
-        <Page :total="100" show-elevator/>
-    </div>
+    <Card>
+        <p slot="title">{{ project_id }} 版本列表</p>
+        <VersionCreate :project_id="project_id" slot="extra"></VersionCreate>
+        <Row>
+            <ul style="list-style-type: none">
+                <li v-for="item in version_list">
+                    <VersionCard :version="item.name" @click="gotoVersion"></VersionCard>
+                </li>
+            </ul>
+        </Row>
+        <Row>
+            <div style="margin: 10px;overflow: hidden">
+                <div style="float: right;">
+                    <!--TODO: changePage function, see table part of iview documents-->
+                    <Page :total="100" :current="1" @on-change="changePage"></Page>
+                </div>
+            </div>
+        </Row>
+    </Card>
 </template>
 <script>
     import VersionCard from '@/components/version/Card.vue'
