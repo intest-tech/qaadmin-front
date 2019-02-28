@@ -1,7 +1,7 @@
 import axios from 'axios';
 // 创建axios实例
 const service = axios.create({
-    baseURL: "http://0.0.0.0:5000/api/v1", // api的base_url
+    baseURL: "http://192.168.1.71:1199/api/v1", // api的base_url
     //timeout: 5000                  // 请求超时时间
 });
 axios.defaults.headers.post['Content-Type'] = "application/x-www-from-urlencoded";
