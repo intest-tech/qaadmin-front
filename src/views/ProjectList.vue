@@ -1,9 +1,18 @@
 <template>
-    <div class="project-list">
-        <h2>项目列表</h2>
-        <Table border :columns="columns" :data="data" @on-row-click="gotoProject"></Table>
-        <Page :total="100" show-elevator/>
-    </div>
+    <Card title="项目列表">
+        <Button slot="extra">add</Button>
+        <Row>
+            <Table border :columns="columns" :data="data" @on-row-click="gotoProject"></Table>
+        </Row>
+        <Row>
+            <div style="margin: 10px;overflow: hidden">
+                <div style="float: right;">
+                    <!--TODO: changePage function, see table part of iview documents-->
+                    <Page :total="100" :current="1" @on-change="changePage"></Page>
+                </div>
+            </div>
+        </Row>
+    </Card>
 </template>
 
 <script>
