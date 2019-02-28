@@ -1,32 +1,26 @@
 <template>
-    <div class="layout">
-        <Layout>
-            <Header :style="{position: 'fixed', width: '100%', background: '#FFF'}">
-                <Row type="flex" justify="center" align="middle">
-                    <Col span="16">
-                        <NavMenu></NavMenu>
-                    </Col>
-                    <Col span="8">
-                        <NavAvatar></NavAvatar>
-                        <button @click="Login"></button>
-                    </Col>
-                </Row>
-            </Header>
-            <Content :style="{margin: '88px 20px 20px', padding: '0 50px', height: '700px', overflow: 'auto'}">
-                <!--<Breadcrumb :style="{margin: '20px 0', left: 0}">-->
-                <!--<BreadcrumbItem>Home</BreadcrumbItem>-->
-                <!--<BreadcrumbItem>Components</BreadcrumbItem>-->
-                <!--<BreadcrumbItem>Layout</BreadcrumbItem>-->
-                <!--</Breadcrumb>-->
-                <!--<Card>-->
-                <div style="min-height: 680px; background: white">
+    <Layout style="height: 100%">
+        <Header class="header-con">
+            <Row type="flex" justify="center" align="middle">
+                <Col span="4">
+                    <h2>QA Admin</h2>
+                </Col>
+                <Col span="14">
+                    <NavMenu></NavMenu>
+                </Col>
+                <Col span="6">
+                    <NavAvatar></NavAvatar>
+                </Col>
+            </Row>
+        </Header>
+        <Content class="main-content-con">
+            <Layout class="main-layout-con">
+                <Content class="content-wrapper">
                     <router-view></router-view>
-                </div>
-                <!--</Card>-->
-            </Content>
-            <!--<Footer class="layout-footer-center">2018-2019 &copy; Shin</Footer>-->
-        </Layout>
-    </div>
+                </Content>
+            </Layout>
+        </Content>
+    </Layout>
 </template>
 
 <script>
@@ -41,38 +35,31 @@
         },
         methods: {
             Login() {
-                window.location.href = `http://0.0.0.0:5000/api/v1/login?next=${window.location.href}`;
+                window.location.href = `http://192.168.1.71:1199/api/v1/login?next=${window.location.href}`;
             }
         }
     }
 </script>
 <style scoped>
-    .layout {
-        border: 1px solid #d7dde4;
-        background: #f5f7f9;
-        position: relative;
-        border-radius: 4px;
+    .header-con {
+        background: #fff;
+        padding: 0 20px;
+        width: 100%;
+    }
+
+    .main-content-con {
+        height: calc(100% - 60px);
         overflow: hidden;
     }
 
-    .layout-logo {
-        width: 100px;
-        height: 30px;
-        background: #5b6270;
-        border-radius: 3px;
-        float: left;
-        position: relative;
-        top: 15px;
-        left: 20px;
+    .main-layout-con {
+        height: 100%;
+        overflow: hidden;
     }
 
-    .layout-nav {
-        width: 420px;
-        margin: 0 auto;
-        margin-right: 20px;
-    }
-
-    .layout-footer-center {
-        text-align: center;
+    .content-wrapper {
+        padding: 18px;
+        height: calc(100% - 80px);
+        overflow: auto;
     }
 </style>

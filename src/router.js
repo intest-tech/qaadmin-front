@@ -14,6 +14,7 @@ export default new Router({
         {
             path: '/',
             name: 'home',
+            redirect: '/project',
             component: Base,
             children: [
                 {

@@ -5,6 +5,7 @@ import iView from 'iview';
 import 'iview/dist/iview.min.js'
 import 'iview/dist/styles/iview.css';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 Vue.config.productionTip = false;
 Vue.use(iView);
@@ -23,6 +24,35 @@ axios.post = function (...args) {
 };
 
 Vue.prototype.$http = axios;
+router.beforeEach((to, from, next) => {
+    var freedom = ['/'],
+        // isLogined = Cookies.get('session'),
+        // url = to.path.toLowerCase(),
+        // isFreedom = freedom.find(x => url === x);
+        isLogined = true
+    if (isLogined) {
+        // TODO: checkExpiry()
+        // if (isLogin_url) {
+        //     checkExpiry()
+        //     return next({path: isSuper ? '/base/user' : '/base/overview'})
+        // }
+        // checkExpiry()
+        // var refer = (from.path || '/').toLowerCase();
+        // //从登录页跳转或页面刷新时不执行，否则会触发2次
+        // if (['/', '/login'].every(x => x.indexOf(refer) != 0)) {// && !isAdmin_url
+        //     // 通知header 检查是否修改了商户绑定列表
+        //     SignCallback.emit('routerChange', url)
+        // }
+        next()
+    } else {
+        if (isFreedom) {
+            return next()
+        }
+        // TODO: login required
+        // return next({name: 'home'})
+        return next()
+    }
+});
 
 new Vue({
     router,
