@@ -2,12 +2,8 @@
     <Card>
         <p slot="title">{{ project_id }} 版本列表</p>
         <VersionCreate :project_id="project_id" slot="extra"></VersionCreate>
-        <Row>
-            <ul style="list-style-type: none">
-                <li v-for="item in version_list">
-                    <VersionCard :version="item.name" @click="gotoVersion"></VersionCard>
-                </li>
-            </ul>
+        <Row style="padding: 2px" v-for="item in version_list">
+            <VersionCard :version="item.name" @click="gotoVersion"></VersionCard>
         </Row>
         <Row>
             <div style="margin: 10px;overflow: hidden">
