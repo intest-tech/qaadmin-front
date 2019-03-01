@@ -5,10 +5,10 @@
                 <Col span="4">
                     <h2>QA Admin</h2>
                 </Col>
-                <Col span="14">
+                <Col span="18">
                     <NavMenu></NavMenu>
                 </Col>
-                <Col span="6">
+                <Col span="2">
                     <NavAvatar></NavAvatar>
                 </Col>
             </Row>
