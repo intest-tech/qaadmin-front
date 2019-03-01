@@ -11,14 +11,21 @@
             <Form :model="formData">
                 <Row :gutter="32">
                     <Col span="24">
-                        <FormItem label="Project" label-position="top">
-                            <Input v-model="formData.name" placeholder="please enter new project name"/>
+                        <FormItem label="项目名称" label-position="top">
+                            <Input v-model="formData.name" placeholder="输入项目名"/>
                         </FormItem>
                     </Col>
                 </Row>
-                <FormItem label="Description" label-position="top">
+                <Row :gutter="32">
+                    <Col span="24">
+                        <FormItem label="测试流程" label-position="top">
+                            <Input v-model="formData.pipeline" placeholder="输入Pipeline, 每个阶段用英文逗号分隔, 如: unittest,apitest"/>
+                        </FormItem>
+                    </Col>
+                </Row>
+                <FormItem label="项目描述" label-position="top">
                     <Input type="textarea" v-model="formData.desc" :rows="4"
-                           placeholder="please enter the description"/>
+                           placeholder="请输入详细的项目描述信息"/>
                 </FormItem>
             </Form>
             <div class="demo-drawer-footer">
@@ -44,6 +51,7 @@
                 },
                 formData: {
                     name: '',
+                    pipeline: [],
                     desc: ''
                 },
             }
