@@ -7,3 +7,11 @@ export function getProject() {
         method: 'get',
     });
 }
+// 创建项目
+export function createProject(data) {
+    return request({
+        url: '/project',
+        method: 'post',
+        data: data,
+    });
+}

@@ -1,6 +1,7 @@
 <template>
     <Card title="项目列表">
-        <Button slot="extra">add</Button>
+        <ProjectCreate slot="extra"></ProjectCreate>
+        <!--<Button slot="extra">add</Button>-->
         <Row>
             <Table border :columns="columns" :data="data" @on-row-click="gotoProject"></Table>
         </Row>
@@ -16,14 +17,14 @@
 </template>
 
 <script>
-    // import ProjectCard from '@/components/project/Card.vue'
+    import ProjectCreate from '@/components/project/Create.vue'
     import {getProject} from '../apis/project'
 
     export default {
         name: "ProjectList",
-        // components: {
-        //     ProjectCard
-        // },
+        components: {
+            ProjectCreate
+        },
         data() {
             return {
                 columns: [
