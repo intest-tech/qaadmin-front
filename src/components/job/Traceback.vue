@@ -1,7 +1,7 @@
 <template>
     <Collapse v-model="value2" accordion>
         <Panel v-for="(item, index) in details" :key='index' :name='""+index'>
-            {{ item.test_case }}
+            {{ item.case_name }}
             <pre slot="content">{{ item.note }}</pre>
         </Panel>
     </Collapse>
