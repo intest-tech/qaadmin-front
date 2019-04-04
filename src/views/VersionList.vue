@@ -9,7 +9,7 @@
             <div style="margin: 10px;overflow: hidden">
                 <div style="float: right;">
                     <!--TODO: changePage function, see table part of iview documents-->
-                    <Page :total="100" :current="1" @on-change="changePage"></Page>
+                    <Page :total="total" :current="1" @on-change="changePage"></Page>
                 </div>
             </div>
         </Row>
@@ -30,7 +30,8 @@
             return {
                 // 获取当前路由中的变量值
                 project_id: this.$route.params.project_id,
-                version_list: []
+                version_list: [],
+                total: 0
             }
         },
         created() {
@@ -42,14 +43,18 @@
                     page = 1
                 }
                 var vm = this;
-                getVersion(vm.project_id).then(([err, data, res]) => {
-                    vm.version_list = data.data
+                getVersion(vm.project_id, page).then(([err, data, res]) => {
+                    vm.version_list = data.data;
+                    vm.total = data.total;
                 })
             },
             gotoVersion(data) {
                 var vm = this;
                 // 跳转到 /project/<project_id> 页面
                 vm.$router.push({path: `/project/${data.name}`});
+            },
+            changePage(page) {
+                this.getVersionList(page);
             }
         }
     }

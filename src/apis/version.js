@@ -1,10 +1,13 @@
 import request from './request'
 
 // 获取版本列表
-export function getVersion(project_id) {
+export function getVersion(project_id, page) {
     return request({
         url: `/project/${project_id}/version`,
         method: 'get',
+        params: {
+            "p": page
+        }
     });
 }
 

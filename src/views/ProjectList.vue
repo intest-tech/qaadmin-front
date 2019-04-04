@@ -3,13 +3,13 @@
         <ProjectCreate slot="extra"></ProjectCreate>
         <!--<Button slot="extra">add</Button>-->
         <Row>
-            <Table border :columns="columns" :data="data" @on-row-click="gotoProject"></Table>
+            <Table border :columns="columns" :data="data_list" @on-row-click="gotoProject"></Table>
         </Row>
         <Row>
             <div style="margin: 10px;overflow: hidden">
                 <div style="float: right;">
                     <!--TODO: changePage function, see table part of iview documents-->
-                    <Page :total="100" :current="1" @on-change="changePage"></Page>
+                    <Page :total="total" :page-size="10" :current="1" @on-change="changePage"></Page>
                 </div>
             </div>
         </Row>
@@ -42,26 +42,31 @@
                         key: 'status'
                     }
                 ],
-                data: [],
+                data_list: [],
+                total: 0,
             }
         },
         created() {
-            this.getProjectList();
+            this.getProjectList(1);
         },
         methods: {
             getProjectList(page) {
                 var vm = this;
-                getProject().then(([err, data, res]) => {
+                getProject(page).then(([err, data, res]) => {
                     if (err) {
                         return;
                     }
-                    vm.data = data;
+                    vm.data_list = data.data;
+                    vm.total = data.total;
                 });
             },
             gotoProject(data) {
                 var vm = this;
                 // 跳转到 /project/<project_id> 页面
                 vm.$router.push({path: `/project/${data.name}`});
+            },
+            changePage(data){
+                this.getProjectList(data);
             }
         }
     }
