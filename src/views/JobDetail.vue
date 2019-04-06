@@ -29,7 +29,8 @@
                     <Divider/>
                     <!--TODO: 过长会超出card高度-->
                     <Table highlight-row :columns="tablecolumns" :data="jobList" :show-header="false"
-                           @on-row-click="getJobDetails"></Table>
+                           @on-row-click="getJobDetails" :height="tableHeight">
+                    </Table>
                 </Card>
             </Col>
         </Row>
@@ -68,8 +69,8 @@
                             const row = params.row;
                             // const color = row.status === 1 ? 'primary' : row.status === 2 ? 'success' : 'error';
                             // const text = row.status === 1 ? 'Working' : row.status === 2 ? 'Success' : 'Fail';
-                            const color = row.status === true ? 'success' : 'error';
-                            const text = row.status === true ? 'Success' : '\b\b\bError\b\b\b';
+                            const color = row.status === 'success' ? 'success' : 'error';
+                            const text = row.status === 'success' ? 'Success' : ' Error ';
 
                             return h('Tag', {
                                 props: {
@@ -83,7 +84,8 @@
                         key: 'stage',
                         tooltip: 'true'
                     }
-                ]
+                ],
+                tableHeight: 200
             }
         },
         created() {
@@ -118,7 +120,11 @@
                     vm.jobDetail = data.data;
                 });
             }
-        }
+        },
+        mounted() {
+            // 设置表格高度
+            this.tableHeight = window.innerHeight - 470;
+        },
     }
 </script>
 
