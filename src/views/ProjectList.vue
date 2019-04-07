@@ -8,7 +8,6 @@
         <Row>
             <div style="margin: 10px;overflow: hidden">
                 <div style="float: right;">
-                    <!--TODO: changePage function, see table part of iview documents-->
                     <Page :total="total" :page-size="10" :current="1" @on-change="changePage"></Page>
                 </div>
             </div>

@@ -3,12 +3,11 @@
         <p slot="title">{{ project_id }} 版本列表</p>
         <VersionCreate :project_id="project_id" slot="extra"></VersionCreate>
         <Row style="padding: 2px" v-for="item in version_list">
-            <VersionCard :version="item.name" @click="gotoVersion"></VersionCard>
+            <VersionCard :version="item.name" :datetime="item.datetime" @click="gotoVersion"></VersionCard>
         </Row>
         <Row>
             <div style="margin: 10px;overflow: hidden">
                 <div style="float: right;">
-                    <!--TODO: changePage function, see table part of iview documents-->
                     <Page :total="total" :current="1" @on-change="changePage"></Page>
                 </div>
             </div>
