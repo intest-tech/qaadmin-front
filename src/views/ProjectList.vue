@@ -3,7 +3,7 @@
         <ProjectCreate slot="extra"></ProjectCreate>
         <!--<Button slot="extra">add</Button>-->
         <Row>
-            <Table border :columns="columns" :data="data_list" @on-row-click="gotoProject"></Table>
+            <Table border :columns="columns" :data="data_list" @on-row-click="gotoProject" size="large"></Table>
         </Row>
         <Row>
             <div style="margin: 10px;overflow: hidden">
