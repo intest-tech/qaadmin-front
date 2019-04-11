@@ -2,7 +2,7 @@
     <Card>
         <p slot="title">{{ project_id }} 版本列表</p>
         <VersionCreate :project_id="project_id" slot="extra"></VersionCreate>
-        <Table :data="versionList" :columns="versionColums" size="large"></Table>
+        <Table :data="versionList" :columns="versionColums"></Table>
         <!--<Row style="padding: 2px" v-for="item in version_list">-->
             <!--<VersionCard :version_detail="item" @click="gotoVersion"></VersionCard>-->
         <!--</Row>-->
@@ -37,8 +37,17 @@
                         key: 'status',
                         render: (h, params) => {
                             const row = params.row;
-                            const color = row.status === 'success' ? 'success' : 'error';
-                            const text = row.status === 'success' ? 'Success' : ' Error ';
+                            var color, text;
+                            if (row.status === 'success') {
+                                color = 'success';
+                                text = 'Success';
+                            } else if (row.status === 'error') {
+                                color = 'error';
+                                text = 'Error';
+                            } else {
+                                color = 'default';
+                                text = 'waiting';
+                            }
                             return h('Tag', {
                                 props: {
                                     color: color
