@@ -62,7 +62,9 @@
                 createProject(vm.formData).then(([err, data, res]) => {
                     vm.value3 = false
                 })
+                // TODO: 更优雅的刷新
                 // 创建完成立即刷新页面
+                location.reload()
             },
         }
     }
