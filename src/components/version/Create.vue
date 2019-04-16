@@ -1,9 +1,9 @@
 <template>
     <div>
-        <Button @click="value3 = true" type="primary">Create</Button>
+        <Button @click="drawOpened = true" type="primary">Create</Button>
         <Drawer
                 title="Create"
-                v-model="value3"
+                v-model="drawOpened"
                 width="720"
                 :mask-closable="false"
                 :styles="styles"
@@ -65,7 +65,7 @@
                 </FormItem>
             </Form>
             <div class="demo-drawer-footer">
-                <Button style="margin-right: 8px" @click="value3 = false">Cancel</Button>
+                <Button style="margin-right: 8px" @click="drawOpened = false">Cancel</Button>
                 <Button type="primary" @click="handleSubmit">Submit</Button>
             </div>
         </Drawer>
@@ -79,7 +79,7 @@
         props: ['project_id'],
         data() {
             return {
-                value3: false,
+                drawOpened: false,
                 styles: {
                     height: 'calc(100% - 55px)',
                     overflow: 'auto',
@@ -100,7 +100,7 @@
             handleSubmit(name) {
                 var vm = this;
                 createVersion(vm.project_id, vm.formData).then(([err, data, res]) => {
-                    vm.value3 = false
+                    vm.drawOpened = false
                 })
                 // 创建完成立即刷新页面
             },
