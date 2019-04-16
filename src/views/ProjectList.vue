@@ -38,7 +38,26 @@
                     },
                     {
                         title: 'Status',
-                        key: 'status'
+                        key: 'status',
+                        render: (h, params) => {
+                            const row = params.row;
+                            var color, text;
+                            if (row.status === 'success') {
+                                color = 'success';
+                                text = 'Success';
+                            } else if (row.status === 'error') {
+                                color = 'error';
+                                text = 'Error';
+                            } else {
+                                color = 'default';
+                                text = 'waiting';
+                            }
+                            return h('Tag', {
+                                props: {
+                                    color: color
+                                }
+                            }, text);
+                        }
                     }
                 ],
                 data_list: [],
