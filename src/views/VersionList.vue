@@ -85,7 +85,7 @@
                                         type:"md-calendar"
                                     }
                                 }),
-                                row.datetime
+                                row.update_time
                             ]);
                         }
                     }

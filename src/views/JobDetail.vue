@@ -116,7 +116,7 @@
             getJobDetails(data) {
                 // 获取某一Job的具体信息
                 var vm = this;
-                var id = data._id.$oid;
+                var id = data._id;
                 getJobDetails(id).then(([err, data, res]) => {
                     vm.jobDetail = data.data;
                 });
