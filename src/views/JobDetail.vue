@@ -1,12 +1,12 @@
 <template>
-    <!--<VersionSteps></VersionSteps>-->
     <Card style="height: 100%">
         <Row :gutter="16" style="height: 100%">
             <Col span="16" style="height: 100%">
                 <Card style="height: 100%">
-                    <Tabs>
+                    <!--TODO: dynamic height-->
+                    <Tabs :animated="false" style="height: 100%">
                         <TabPane label="Overview" icon="md-stats">标签二的内容</TabPane>
-                        <TabPane label="Traceback" icon="md-code">
+                        <TabPane label="Traceback" icon="md-code" style="height: calc(100% - 38px); overflow: auto">
                             <!--传入traceback内容-->
                             <Traceback :details="jobDetail.details" style="margin: 10px;overflow: hidden"></Traceback>
                         </TabPane>
@@ -15,10 +15,10 @@
             </Col>
             <Col span="8" style="height: 100%">
                 <Card style="height: 100%">
-                    <h2>{{ jobDetail.stage }}</h2>
+                    <h2>{{ project_id }}</h2>
                     <Divider/>
-                    <p>Project: {{ project_id }}</p>
                     <p>Version: {{ version }}</p>
+                    <p>Stage: {{ jobDetail.stage }}</p>
                     <p>Duration: {{ parseFloat(jobDetail.duration).toFixed(3) }} s</p>
                     <p>Tag: {{ jobDetail.tag }}</p>
                     <Divider/>
@@ -27,9 +27,8 @@
                         <Option v-for="item in pipeLineList" :value="item" :key="item">{{ item }}</Option>
                     </Select>
                     <Divider/>
-                    <!--TODO: 过长会超出card高度-->
-                    <Table highlight-row :columns="tablecolumns" :data="jobList" :show-header="false"
-                           @on-row-click="getJobDetails" :height="tableHeight">
+                    <Table highlight-row :columns="stageTableColumns" :data="jobList" :show-header="false"
+                           @on-row-click="getJobDetails" :height="stageTableHeight">
                     </Table>
                 </Card>
             </Col>
@@ -54,13 +53,13 @@
                 // 下拉框选项
                 pipeLineList: [],
                 defautOption: '',
+                // 任务详情
+                jobDetail: {},
                 // 任务列表
                 jobList: [],
                 defautJob: '',
-                // 任务详情
-                jobDetail: {},
                 //任务列表表格配置
-                tablecolumns: [
+                stageTableColumns: [
                     {
                         title: 'Status',
                         key: 'was_successful',
@@ -85,7 +84,7 @@
                         tooltip: 'true'
                     }
                 ],
-                tableHeight: 200
+                stageTableHeight: 200
             }
         },
         created() {
@@ -109,6 +108,8 @@
                     if (vm.jobList.length !== 0) {
                         vm.defautJob = vm.jobList[0];
                         vm.getJobDetails(vm.defautJob);
+                    } else {
+                        vm.jobDetail = {}
                     }
                 })
             },
@@ -123,7 +124,7 @@
         },
         mounted() {
             // 设置表格高度
-            this.tableHeight = window.innerHeight - 470;
+            this.stageTableHeight = window.innerHeight - 470;
         },
     }
 </script>
@@ -131,6 +132,9 @@
 <style>
     .ivu-card-body {
         padding: 16px;
+        height: 100%;
+    }
+    .ivu-tabs-content {
         height: 100%;
     }
 </style>
