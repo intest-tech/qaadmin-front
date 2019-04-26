@@ -1,9 +1,9 @@
 <template>
     <Card title="项目列表">
         <ProjectCreate slot="extra"></ProjectCreate>
-        <!--<Button slot="extra">add</Button>-->
         <Row>
-            <Table border :columns="columns" :data="data_list" @on-row-click="gotoProject"></Table>
+            <Table border :columns="columns" :data="data_list" @on-row-click="gotoProject">
+            </Table>
         </Row>
         <Row>
             <div style="margin: 10px;overflow: hidden">
@@ -12,17 +12,20 @@
                 </div>
             </div>
         </Row>
+        <ProjectInfo :drawOpened="drawOpened" :projectDetail="projectDetail" @on-close="listenDrawStatus"></ProjectInfo>
     </Card>
 </template>
 
 <script>
     import ProjectCreate from '@/components/project/Create.vue'
-    import {getProject} from '../apis/project'
+    import ProjectInfo from '@/components/project/Info.vue'
+    import {getProject, getProjectDetail} from '../apis/project'
 
     export default {
         name: "ProjectList",
         components: {
-            ProjectCreate
+            ProjectCreate,
+            ProjectInfo
         },
         data() {
             return {
@@ -39,6 +42,8 @@
                     {
                         title: 'Status',
                         key: 'status',
+                        width: 100,
+                        align: 'center',
                         render: (h, params) => {
                             const row = params.row;
                             var color, text;
@@ -58,10 +63,60 @@
                                 }
                             }, text);
                         }
+                    },
+                    {
+                        title: 'Action',
+                        key: 'action',
+                        width: 100,
+                        align: 'center',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.drawOpened = true
+                                            this.projectID = params.row.name
+                                            this.getProjectInfo()
+                                        }
+                                    },
+                                    nativeOn: {
+                                        click: (event) => {
+                                            event.stopPropagation();
+                                        }
+                                    }
+                                }, 'View'),
+                                // h('Button', {
+                                //     props: {
+                                //         type: 'error',
+                                //         size: 'small'
+                                //     },
+                                //     on: {
+                                //         click: () => {
+                                //             this.remove(params.index)
+                                //         }
+                                //     },
+                                //     nativeOn: {
+                                //         click: (event) => {
+                                //             event.stopPropagation();
+                                //         }
+                                //     }
+                                // }, 'Delete')
+                            ]);
+                        }
                     }
                 ],
+                projectID: '',
+                projectDetail: {},
                 data_list: [],
                 total: 0,
+                drawOpened: false
             }
         },
         created() {
@@ -83,8 +138,18 @@
                 // 跳转到 /project/<project_id> 页面
                 vm.$router.push({path: `/project/${data.name}`});
             },
-            changePage(data){
+            changePage(data) {
                 this.getProjectList(data);
+            },
+            getProjectInfo() {
+                var vm = this;
+                getProjectDetail(vm.projectID).then(([err, data, res]) => {
+                    vm.projectDetail = data
+                    console.info(err, data, res)
+                })
+            },
+            listenDrawStatus: function (status) {
+                this.drawOpened = status
             }
         }
     }

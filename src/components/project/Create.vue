@@ -51,7 +51,7 @@
                 },
                 formData: {
                     name: '',
-                    pipeline: [],
+                    pipeline: '',
                     desc: ''
                 },
             }
