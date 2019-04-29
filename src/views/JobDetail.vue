@@ -68,8 +68,8 @@
                             const row = params.row;
                             // const color = row.status === 1 ? 'primary' : row.status === 2 ? 'success' : 'error';
                             // const text = row.status === 1 ? 'Working' : row.status === 2 ? 'Success' : 'Fail';
-                            const color = row.status === 'success' ? 'success' : 'error';
-                            const text = row.status === 'success' ? 'Success' : ' Error ';
+                            const color = row.was_successful === true ? 'success' : 'error';
+                            const text = row.was_successful === true ? 'Success' : ' Error ';
 
                             return h('Tag', {
                                 props: {
