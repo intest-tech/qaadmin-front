@@ -19,6 +19,7 @@
                     <Divider/>
                     <p>Version: {{ version }}</p>
                     <p>Stage: {{ jobDetail.stage }}</p>
+                    <p>Datetime: {{ jobDetail.update_time }}</p>
                     <p>Duration: {{ parseFloat(jobDetail.duration).toFixed(3) }} s</p>
                     <p>Tag: {{ jobDetail.tag }}</p>
                     <Divider/>
@@ -40,6 +41,7 @@
     import Traceback from '@/components/job/Traceback.vue';
     import {getVersionDetails} from "../apis/version";
     import {getJobList, getJobDetails} from "../apis/job"
+    import {formatDate} from "../assets/date";
 
     export default {
         name: "JobDetail",
@@ -119,6 +121,8 @@
                 var id = data._id;
                 getJobDetails(id).then(([err, data, res]) => {
                     vm.jobDetail = data.data;
+                    var date = new Date(data.data.update_time.$date)
+                    vm.jobDetail.update_time = formatDate(date, 'MM-dd hh:mm:ss')
                 });
             }
         },
