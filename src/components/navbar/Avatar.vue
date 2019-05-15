@@ -1,20 +1,16 @@
 <template>
-    <!--<div class="demo-avatar">-->
-    <!--<Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" />-->
-    <!--<Avatar style="color: #f56a00;background-color: #fde3cf">USER</Avatar>-->
-    <!--</div>-->
     <div class="user-avator-dropdown">
-        <Dropdown @on-click="handleClick">
+        <Dropdown @on-click="handleClick" v-if="alreadyLoggedIn">
             <Avatar :src="profile.avatar"/>
             <Icon :size="18" type="md-arrow-dropdown"></Icon>
             <DropdownMenu slot="list">
-                <DropdownItem name="nickname" v-if="alreadyLoggedIn">
+                <DropdownItem name="nickname">
                     {{ profile.nickname }}
                 </DropdownItem>
-                <DropdownItem name="logout" v-if="alreadyLoggedIn">退出登录</DropdownItem>
-                <DropdownItem name="login" v-else>登录</DropdownItem>
+                <DropdownItem name="logout">退出登录</DropdownItem>
             </DropdownMenu>
         </Dropdown>
+        <Button icon="md-log-in" @click="login" v-else>登录</Button>
     </div>
 </template>
 <script>
@@ -32,11 +28,7 @@
             this.getProfile()
         },
         methods: {
-            // ...mapActions([
-            //     'handleLogOut'
-            // ]),
             login() {
-                // debugger
                 window.location.href = `http://192.168.1.71:1199/api/v1/login?next=${window.location.href}`;
             },
             logout() {
